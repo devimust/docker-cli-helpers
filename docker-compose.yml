@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+
+  # base php image
+  php-base:
+    build:
+      args:
+        user: $USER
+        uid: $UID
+      context: ./php
+      dockerfile: Dockerfile
+    image: php-base
+
+  # php composer helper image
+  composer:
+    image: php-base
+    entrypoint: 'composer'
+    volumes:
+      - $PWD:/app
+
+  # laravel helper image
+  laravel:
+    image: php-base
+    entrypoint: 'laravel'
+    volumes:
+      - $PWD:/app
